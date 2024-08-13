@@ -1,0 +1,17 @@
+.imgCard {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  object-fit: cover;
+  width: 400px;
+  height: 300px;
+}
+
+.img:hover {
+  cursor: pointer;
+}

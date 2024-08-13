@@ -1,0 +1,15 @@
+.list {
+  display: flex;
+  gap: 24px 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px 0;
+  margin: 0 auto;
+}
+.item {
+  cursor: zoom-in;
+  transition: transform 0.3s;
+}
+.item:hover {
+  transform: scale(1.05);
+}
