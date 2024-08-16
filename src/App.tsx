@@ -11,26 +11,28 @@ import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
 
 import { requestImages } from './components/services/api';
+import { Image, ImageData } from './App.types';
+import { string } from 'yup';
 
 function App() {
-  const [images, setImages] = useState(null);
-  const [query, setQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const [loadMore, setLoadMore] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [images, setImages] = useState<Image[] | null>(null);
+  const [query, setQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [loadMore, setLoadMore] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (query === null) return;
+    if (!query.trim()) return;
 
     async function fetchImages() {
       try {
         setIsLoading(true);
-        const data = await requestImages(query, page);
-        if (data.total === 0) {
+        const data: ImageData = await requestImages(query, page);
+        if (!data || data.total === 0) {
           return;
         }
 
@@ -51,7 +53,7 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const onSetSearchQuery = searchTerm => {
+  const onSetSearchQuery = (searchTerm: string) => {
     setQuery(searchTerm);
     setPage(1);
     setImages([]);
@@ -61,7 +63,7 @@ function App() {
     setPage(prevPage => prevPage + 1);
   };
 
-  const handleImageClick = photo => {
+  const handleImageClick = (photo: Image) => {
     setSelectedImage(photo);
     onOpenModal();
   };

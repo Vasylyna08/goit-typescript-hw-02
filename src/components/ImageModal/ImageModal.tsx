@@ -1,9 +1,20 @@
 import css from './ImageModal.module.css';
 import Modal from 'react-modal';
+import { Image } from '../../App.types';
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ photo, isModalOpen, closeModal }) => {
+interface ImageModalProps {
+  photo: Image | null;
+  isModalOpen: boolean;
+  closeModal: () => void;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({
+  photo,
+  isModalOpen,
+  closeModal,
+}) => {
   return (
     <Modal
       overlayClassName={css.overlay}
